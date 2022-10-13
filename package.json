@@ -1,0 +1,96 @@
+{
+  "name": "qiniu-upload-plugin",
+  "displayName": "qiniu-upload-plugin",
+  "description": "使用七牛云图片上传图床",
+  "version": "0.0.1",
+  "publisher": "Luncode",
+  "icon": "icon/upload_icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Luncode/qiniu-upload-plugin.git"
+  },
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.72.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:qiniu.commamdsUploadImage",
+    "onCommand:qiniu.uploadImage"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "qiniu.commamdsUploadImage",
+        "title": "选择图片上传七牛云"
+      },
+      {
+        "command": "qiniu.uploadImage",
+        "title": "选择图片上传七牛云"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "when": "editorFocus",
+          "command": "qiniu.uploadImage",
+          "group": "navigation"
+        }
+      ]
+    },
+    "configuration": [
+      {
+        "title": "上传七牛插件配置项",
+        "properties": {
+          "qiniu_config.domain": {
+            "type": "string",
+            "default": "",
+            "description": "设置七牛云绑定域名"
+          },
+          "qiniu_config.accessKey": {
+            "type": "string",
+            "default": "",
+            "description": "设置七牛上传accessKey"
+          },
+          "qiniu_config.secretKey": {
+            "type": "string",
+            "default": "",
+            "description": "设置七牛上传secretKey"
+          },
+          "qiniu_config.bucket": {
+            "type": "string",
+            "default": "",
+            "description": "设置七牛上传上传空间"
+          }
+        }
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.72.0",
+    "@types/glob": "^8.0.0",
+    "@types/mocha": "^10.0.0",
+    "@types/node": "14.x",
+    "@typescript-eslint/eslint-plugin": "^5.38.1",
+    "@typescript-eslint/parser": "^5.38.1",
+    "eslint": "^8.24.0",
+    "glob": "^8.0.3",
+    "mocha": "^10.0.0",
+    "typescript": "^4.8.4",
+    "@vscode/test-electron": "^2.1.5"
+  },
+  "dependencies": {
+    "qiniu": "^7.7.0"
+  }
+}
